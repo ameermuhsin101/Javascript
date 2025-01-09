@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f0f0f0;
+        }
+        input {
+            margin: 5px;
+            padding: 10px;
+            width: calc(100% - 22px);
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Programming Tasks</h1>
+        <h2>Enter Input and Choose a Task</h2>
+
+        <!-- Input Field -->
+        <input type="text" id="userInput" placeholder="Enter your input here">
+
+        <!-- Buttons for tasks -->
+        <button onclick="fizzBuzz()">Fizz_Buzz</button>
+        <button onclick="showFactorial()">Print Factorial</button>
+        <button onclick="checkPrime()">Check Prime or Not</button>
+        <button onclick="showFibonacci()">Print Fibonacci Series</button>
+        <button onclick="sumDigits()">Sum of given Digits</button>
+        <button onclick="convertTemperature()">Convert Tempratures</button>
+        <button onclick="calculateSalary()">Calculate Net Salary</button>
+        <button onclick="checkStrongNumber()">Check Strong Number or not</button>
+        <button onclick="reverseString()">Reverse given String</button>
+        <button onclick="countVowelsConsonants()">Count Vowels & Consonants</button>
+
+        <br><br><div class="output" id="output"><b>Output ...</b></div>
+    </div>
+
+    <script>
+        const outputDiv = document.getElementById('output');
+
+        function getUserInput() {
+            const input = document.getElementById('userInput').value;
+            return input;
+        }
+
+        // Task 1: FizzBuzz
+        function fizzBuzz() {
+            const n = parseInt(getUserInput());
+            if (isNaN(n)) {
+                outputDiv.textContent = "Please enter a valid number.";
+                return;
+            }
+            let result = '';
+            for (let i = 1; i <= n; i++) {
+                if (i % 3 === 0 && i % 5 === 0) {
+                    result += 'FizzBuzz ';
+                } else if (i % 3 === 0) {
+                    result += 'Fizz ';
+                } else if (i % 5 === 0) {
+                    result += 'Buzz ';
+                } else {
+                    result += i + ' ';
+                }
+            }
+            outputDiv.textContent = result;
+        }
+
+        // Task 2: Factorial
+        function showFactorial() {
+            const n = parseInt(getUserInput());
+            if (isNaN(n) || n < 0) {
+                outputDiv.textContent = "Please enter a valid non-negative number.";
+                return;
+            }
+            let result = 1;
+            for (let i = 1; i <= n; i++) {
+                result *= i;
+            }
+            outputDiv.textContent = `Factorial of ${n} is ${result}`;
+        }
+
+        // Task 3: Check Prime
+        function checkPrime() {
+            const n = parseInt(getUserInput());
+            if (isNaN(n)) {
+                outputDiv.textContent = "Please enter a valid number.";
+                return;
+            }
+            if (n <= 1) {
+                outputDiv.textContent = `${n} is neither prime nor composite`;
+                return;
+            }
+            for (let i = 2; i <= Math.sqrt(n); i++) {
+                if (n % i === 0) {
+                    outputDiv.textContent = `${n} is Composite`;
+                    return;
+                }
+            }
+            outputDiv.textContent = `${n} is Prime`;
+        }
+
+        // Task 4: Fibonacci Series
+        function showFibonacci() {
+            const n = parseInt(getUserInput());
+            if (isNaN(n) || n <= 0) {
+                outputDiv.textContent = "Please enter a valid positive number.";
+                return;
+            }
+            let a = 0, b = 1;
+            let series = [a];
+            for (let i = 1; i < n; i++) {
+                let next = a + b;
+                series.push(b);
+                a = b;
+                b = next;
+            }
+            outputDiv.textContent = `Fibonacci Series: ${series.join(', ')}`;
+        }
+
+        // Task 5: Sum of Digits
+        function sumDigits() {
+            const num = getUserInput();
+            if (isNaN(num)) {
+                outputDiv.textContent = "Please enter a valid number.";
+                return;
+            }
+            const sum = num.split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+            outputDiv.textContent = `Sum of digits of ${num} is ${sum}`;
+        }
+
+        // Task 6: Temperature Conversion
+        function convertTemperature() {
+            const value = parseFloat(getUserInput());
+            if (isNaN(value)) {
+                outputDiv.textContent = "Please enter a valid number.";
+                return;
+            }
+            const scale = prompt("Enter the scale to convert to (C/F):");
+            if (scale === 'C' || scale === 'c') {
+                let celsius = (value - 32) * 5/9;
+                outputDiv.textContent = `${value}°F is ${celsius.toFixed(2)}°C`;
+            } else if (scale === 'F' || scale === 'f') {
+                let fahrenheit = (value * 9/5) + 32;
+                outputDiv.textContent = `${value}°C is ${fahrenheit.toFixed(2)}°F`;
+            } else {
+                outputDiv.textContent = `Invalid scale entered.`;
+            }
+        }
+
+        // Task 7: Salary Calculation
+        function calculateSalary() {
+            const basicSalary = parseFloat(getUserInput());
+            if (isNaN(basicSalary) || basicSalary < 0) {
+                outputDiv.textContent = "Please enter a valid positive number.";
+                return;
+            }
+            let da, hra, pf;
+            if (basicSalary < 10000) {
+                da = 0.25 * basicSalary;
+                hra = 0.30 * basicSalary;
+                pf = 0.08 * basicSalary;
+            } else if (basicSalary < 20000) {
+                da = 0.20 * basicSalary;
+                hra = 0.25 * basicSalary;
+                pf = 0.06 * basicSalary;
+            } else if (basicSalary < 30000) {
+                da = 0.15 * basicSalary;
+                hra = 0.20 * basicSalary;
+                pf = 0.04 * basicSalary;
+            } else {
+                da = 0.10 * basicSalary;
+                hra = 0.15 * basicSalary;
+                pf = 0.02 * basicSalary;
+            }
+            let netSalary = basicSalary + da + hra - pf;
+            outputDiv.textContent = `Basic: ${basicSalary},\n DA: ${da},\n HRA: ${hra},\n PF: ${pf},\n Net: ${netSalary}`;
+        }
+
+        // Task 8: Strong Number
+        function checkStrongNumber() {
+            const num = parseInt(getUserInput());
+            if (isNaN(num) || num < 0) {
+                outputDiv.textContent = "Please enter a valid positive number.";
+                return;
+            }
+            const factorial = (n) => n <= 1 ? 1 : n * factorial(n - 1);
+            const sum = num.toString().split('').reduce((acc, digit) => acc + factorial(+digit), 0);
+            outputDiv.textContent = `${num} is ${sum === num ? 'a Strong Number' : 'not a Strong Number'}`;
+        }
+
+        // Task 9: Reverse String
+        function reverseString() {
+            const str = getUserInput();
+            if (!str) {
+                outputDiv.textContent = "Please enter a valid string.";
+                return;
+            }
+            const reversed = str.split('').reverse().join('');
+            outputDiv.textContent = `Reversed string: ${reversed}`;
+        }
+
+        // Task 10: Count Vowels and Consonants
+        function countVowelsConsonants() {
+            const str = getUserInput();
+            if (!str) {
+                outputDiv.textContent = "Please enter a valid string.";
+                return;
+            }
+            const vowels = "aeiouAEIOU";
+            let vowelCount = 0, consonantCount = 0;
+            for (let char of str) {
+                if (vowels.includes(char)) {
+                    vowelCount++;
+                } else if (char.match(/[a-zA-Z]/)) {
+                    consonantCount++;
+                }
+            }
+            outputDiv.textContent = `Vowels: ${vowelCount}, Consonants: ${consonantCount}`;
+        }
+    </script>
+</body>
+</html>
